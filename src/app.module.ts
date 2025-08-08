@@ -11,44 +11,31 @@ import { GetByIdDescriptionUseCaseImpl } from './description/application/usecase
 import { DeleteDescriptionUseCaseImpl } from './description/application/usecases/DeleteDescriptionUseCaseImpl';
 import { PostgresDescriptionRepositoryAdapter } from './description/infrastructure/repositories/PostgresDescriptionRepositoryAdapter';
 
+const descriptionProviders = [
+  { provide: 'DescriptionRepositoryPort', useClass: PostgresDescriptionRepositoryAdapter },
+  { provide: 'CreateDescriptionUseCase', useClass: CreateDescriptionUseCaseImpl },
+  { provide: 'GetAllDescriptionUseCase', useClass: GetAllDescriptionUseCaseImpl },
+  { provide: 'GetByIdDescriptionUseCase', useClass: GetByIdDescriptionUseCaseImpl },
+  { provide: 'DeleteDescriptionUseCase', useClass: DeleteDescriptionUseCaseImpl },
+  {
+    provide: ServiceDescription,
+    useFactory: (
+      create: CreateDescriptionUseCase,
+      getAll: GetAllDescriptionUseCase,
+      getById: GetByIdDescriptionUseCase,
+      del: DeleteDescriptionUseCase
+    ) => new ServiceDescription(create, getAll, getById, del),
+    inject: [
+      'CreateDescriptionUseCase',
+      'GetAllDescriptionUseCase',
+      'GetByIdDescriptionUseCase',
+      'DeleteDescriptionUseCase',
+    ],
+  },
+];
+
 @Module({
   controllers: [DescriptionController],
-  providers: [
-    {
-      provide: 'DescriptionRepositoryPort',
-      useClass: PostgresDescriptionRepositoryAdapter,
-    },
-    {
-      provide: 'CreateDescriptionUseCase',
-      useClass: CreateDescriptionUseCaseImpl,
-    },
-    {
-      provide: 'GetAllDescriptionUseCase',
-      useClass: GetAllDescriptionUseCaseImpl,
-    },
-    {
-      provide: 'GetByIdDescriptionUseCase',
-      useClass: GetByIdDescriptionUseCaseImpl,
-    },
-    {
-      provide: 'DeleteDescriptionUseCase',
-      useClass: DeleteDescriptionUseCaseImpl,
-    },
-    {
-      provide: ServiceDescription,
-      useFactory: (
-        create: CreateDescriptionUseCase,
-        getAll: GetAllDescriptionUseCase,
-        getById: GetByIdDescriptionUseCase,
-        del: DeleteDescriptionUseCase
-      ) => new ServiceDescription(create, getAll, getById, del),
-      inject: [
-        'CreateDescriptionUseCase',
-        'GetAllDescriptionUseCase',
-        'GetByIdDescriptionUseCase',
-        'DeleteDescriptionUseCase',
-      ],
-    },
-  ],
+  providers: [...descriptionProviders],
 })
 export class AppModule {}
