@@ -5,7 +5,7 @@ import { DescriptionRepositoryPort } from "src/description/domain/port/out/Descr
 export class GetAllDescriptionUseCaseImpl implements GetAllDescriptionUseCase {
     constructor(private descriptionRepository: DescriptionRepositoryPort) {}
 
-    async run(): Promise<Description[]> {
+    async getAll(): Promise<Description[]> {
         return this.descriptionRepository.findAll();
     }
 

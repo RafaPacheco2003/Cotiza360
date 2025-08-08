@@ -1,9 +1,14 @@
-export class Description{
-    id: string;
-    description: string;
+import { DescriptionDescription } from "./valueObject/DescriptionDescription";
+import { DescriptionId } from "./valueObject/DescriptionId";
 
-    constructor(id: string, description: string) {
+export class Description{
+    id: DescriptionId;
+    description: DescriptionDescription;
+
+    constructor(id: DescriptionId, description: DescriptionDescription) {
         this.id = id;
         this.description = description;
     }
+
+
 }

@@ -8,6 +8,7 @@ export class DeleteDescriptionUseCaseImpl implements DeleteDescriptionUseCase {
 
     async delete(id: string): Promise<void> {
         const descriptionId = new DescriptionId(id);
+    
         const description = await this.descriptionRepository.findById(descriptionId);
         if (!description) {
             throw DescriptionErrors.notFound(id);
