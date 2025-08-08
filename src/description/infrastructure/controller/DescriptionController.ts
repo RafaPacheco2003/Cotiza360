@@ -10,21 +10,20 @@ export class DescriptionController {
 
   @Post()
   async create(@Body() request: DescriptionRequest): Promise<DescriptionResponse> {
-    const entity = requestToDomain(request);
-    await this.service.create(entity);
-    // Si quieres retornar el objeto creado, deberías obtenerlo por id después de crearlo
-    return domainToResponse(entity);
+    const domain = requestToDomain(request);
+    await this.service.create(domain);
+    return domainToResponse(domain);
   }
 
   @Get(':id')
   async findById(@Param('id') id: string): Promise<DescriptionResponse | null> {
-    const entity = await this.service.getById(id);
-    return entity ? domainToResponse(entity) : null;
+    const domain = await this.service.getById(id);
+    return domain ? domainToResponse(domain) : null;
   }
 
   @Get()
   async findAll(): Promise<DescriptionResponse[]> {
-    const entities = await this.service.getAll();
-    return entities.map(domainToResponse);
+    const domain = await this.service.getAll();
+    return domain.map(domainToResponse);
   }
 }

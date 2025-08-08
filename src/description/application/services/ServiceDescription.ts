@@ -6,10 +6,10 @@ import { GetByIdDescriptionUseCase } from "src/description/domain/port/in/GetByI
 
 export class ServiceDescription implements CreateDescriptionUseCase, GetByIdDescriptionUseCase, GetAllDescriptionUseCase, DeleteDescriptionUseCase {
     constructor(
-        private createDescriptionUseCase: CreateDescriptionUseCase,
-        private getAllDescriptionUseCase: GetAllDescriptionUseCase,
-        private getByIdDescriptionUseCase: GetByIdDescriptionUseCase,
-        private deleteDescriptionUseCase: DeleteDescriptionUseCase
+        private readonly createDescriptionUseCase: CreateDescriptionUseCase,
+        private readonly getAllDescriptionUseCase: GetAllDescriptionUseCase,
+        private readonly getByIdDescriptionUseCase: GetByIdDescriptionUseCase,
+        private readonly deleteDescriptionUseCase: DeleteDescriptionUseCase
     ) {}
 
     async create(description: Description): Promise<void> {
