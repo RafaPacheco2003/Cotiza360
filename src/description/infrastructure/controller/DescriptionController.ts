@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Param } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, HttpCode } from '@nestjs/common';
 import { DescriptionRequest } from '../https/request/DescriptionRequest';
 import { DescriptionResponse } from '../https/response/DescriptionResponse';
 import { requestToDomain, domainToResponse } from '../mappers/DescriptionMapper';
@@ -9,6 +9,7 @@ export class DescriptionController {
   constructor(private readonly service: ServiceDescription) {}
 
   @Post()
+  @HttpCode(201)
   async create(@Body() request: DescriptionRequest): Promise<DescriptionResponse> {
     const domain = requestToDomain(request);
     await this.service.create(domain);
