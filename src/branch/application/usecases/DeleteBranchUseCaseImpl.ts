@@ -13,6 +13,8 @@ export class DeleteBranchUseCaseImpl implements DeleteBranchUseCase {
     async delete(id: string): Promise<void> {
         const branchId= new BranchId(id);
         const branch = await this.branchRepository.findById(branchId);
+
+        
         if (!branch) {
             throw BranchErrors.notFound(id);
         }
