@@ -4,13 +4,16 @@ import { Description } from 'src/description/domain/Description';
 import { DescriptionId } from 'src/description/domain/valueObject/DescriptionId';
 import { prismaToDomain, domainToPrisma } from '../mappers/DescriptionMapper';
 
-export class PostgresDescriptionRepositoryAdapter implements DescriptionRepositoryPort {
+export class PostgresDescriptionRepositoryAdapter
+  implements DescriptionRepositoryPort
+{
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   private prisma = new PrismaClient();
 
   async create(description: Description): Promise<void> {
     const prismaData = domainToPrisma(description);
     await this.prisma.description.create({
-      data: prismaData
+      data: prismaData,
     });
   }
 
@@ -20,7 +23,9 @@ export class PostgresDescriptionRepositoryAdapter implements DescriptionReposito
   }
 
   async findById(id: DescriptionId): Promise<Description | null> {
-    const result = await this.prisma.description.findUnique({ where: { id: id.value } });
+    const result = await this.prisma.description.findUnique({
+      where: { id: id.value },
+    });
     return result ? prismaToDomain(result) : null;
   }
 

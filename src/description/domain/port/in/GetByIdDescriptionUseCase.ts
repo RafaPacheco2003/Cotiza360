@@ -1,5 +1,5 @@
-import { Description } from "src/description/domain/Description";
+import { Description } from 'src/description/domain/Description';
 
 export interface GetByIdDescriptionUseCase {
-    getById(id: string): Promise<Description | null>;
+  getById(id: string): Promise<Description | null>;
 }

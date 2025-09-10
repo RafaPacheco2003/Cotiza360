@@ -1,6 +1,5 @@
+import { Branch } from '../../Branch';
 
-import { Branch } from "../../Branch";
-
-export interface CreateBranchUseCase{
-    create(branch: Branch): Promise<void>;
+export interface CreateBranchUseCase {
+  create(branch: Branch): Promise<void>;
 }

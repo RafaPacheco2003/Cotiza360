@@ -1,4 +1,3 @@
 export class BranchRequest {
-    name: string;
-
+  name: string;
 }
