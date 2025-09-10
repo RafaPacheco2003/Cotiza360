@@ -7,7 +7,7 @@ export class DescriptionDescription {
   }
 
   private ensureIsValid(): void {
-    if (this.value.length < 5) {
+    if (this.value.length < 10) {
       throw new Error('Invalid DescriptionDescription');
     }
   }
