@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ServiceBranch } from 'src/branch/application/services/ServiceBranch';
 
 import { BranchRequest } from '../dtos/request/BranchRequest';
@@ -16,9 +16,20 @@ export class ControllerBranch {
     return domainToResponse(domain);
   }
 
+  @Get('/:id')
+  async findById(@Param('id') id: string): Promise<BranchResponse | null> {
+    const domain = await this.service.getById(id);
+    return domain ? domainToResponse(domain) : null;
+  }
+
   @Get()
   async findAll(): Promise<BranchResponse[]> {
     const domains = await this.service.findAll();
     return domains.map(domainToResponse);
+  }
+
+  @Delete('/:id')
+  async delete(@Param('id') id: string): Promise<void> {
+    await this.service.delete(id);
   }
 }
