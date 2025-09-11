@@ -1,7 +1,7 @@
 import { Branch } from '../../Branch';
 import { BranchId } from '../../valueObject/BranchId';
 
-export interface BranchRepositoryPort {
+export interface RepositoryBranchPort {
   create(branch: Branch): Promise<void>;
   findAll(): Promise<Branch[]>;
   findById(id: BranchId): Promise<Branch | null>;

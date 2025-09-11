@@ -20,3 +20,9 @@ model Description {
   updatedAt   DateTime @updatedAt
 }
 
+model Branch {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
