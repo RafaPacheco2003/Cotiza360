@@ -1,5 +1,5 @@
 import { Description } from 'src/description/domain/Description';
-import { DescriptionRepositoryPort } from 'src/description/domain/port/out/DescriptionRepositoryPort';
+import { DescriptionRepositoryPort } from 'src/description/domain/ports/out/DescriptionRepositoryPort';
 import { DescriptionId } from 'src/description/domain/valueObject/DescriptionId';
 
 export class InMemoryDescriptionRepositoryAdapter

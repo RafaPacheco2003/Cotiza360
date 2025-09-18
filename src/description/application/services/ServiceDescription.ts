@@ -1,8 +1,8 @@
 import { Description } from 'src/description/domain/Description';
-import { CreateDescriptionUseCase } from 'src/description/domain/port/in/CreateDescriptionUseCase';
-import { DeleteDescriptionUseCase } from 'src/description/domain/port/in/DeleteDescriptionUseCase';
-import { GetAllDescriptionUseCase } from 'src/description/domain/port/in/GetAllDescriptionUseCase';
-import { GetByIdDescriptionUseCase } from 'src/description/domain/port/in/GetByIdDescriptionUseCase';
+import { CreateDescriptionUseCase } from 'src/description/domain/ports/in/CreateDescriptionUseCase';
+import { DeleteDescriptionUseCase } from 'src/description/domain/ports/in/DeleteDescriptionUseCase';
+import { GetAllDescriptionUseCase } from 'src/description/domain/ports/in/GetAllDescriptionUseCase';
+import { GetByIdDescriptionUseCase } from 'src/description/domain/ports/in/GetByIdDescriptionUseCase';
 
 export class ServiceDescription
   implements

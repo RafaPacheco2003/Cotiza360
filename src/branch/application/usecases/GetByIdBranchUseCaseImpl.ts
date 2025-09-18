@@ -1,11 +1,11 @@
 import { Inject } from '@nestjs/common';
 import { Branch } from 'src/branch/domian/Branch';
-import { GetByIdBranchUseCase } from 'src/branch/domian/port/in/GetByIdBranchUseCase';
-import type { RepositoryBranchPort } from 'src/branch/domian/port/out/RepositoryBranchPort';
+import { FindByIdBranchUseCase } from 'src/branch/domian/ports/in/FindByIdBranchUseCase';
+import type { RepositoryBranchPort } from 'src/branch/domian/ports/out/RepositoryBranchPort';
 import { BranchId } from 'src/branch/domian/valueObject/BranchId';
-import { BranchErrors } from 'src/branch/domian/errors/BranchErrors';
+import { ErrorsBranch } from 'src/branch/domian/errors/ErrorsBranch';
 
-export class GetByIdBranchUseCaseImpl implements GetByIdBranchUseCase {
+export class GetByIdBranchUseCaseImpl implements FindByIdBranchUseCase {
   constructor(
     @Inject('BranchRepositoryPort')
     private readonly branchRepository: RepositoryBranchPort,
@@ -15,7 +15,7 @@ export class GetByIdBranchUseCaseImpl implements GetByIdBranchUseCase {
     const branch = await this.branchRepository.findById(new BranchId(id));
 
     if (!branch) {
-      throw BranchErrors.notFound(id);
+      throw ErrorsBranch.notFound(id);
     }
 
     return branch;

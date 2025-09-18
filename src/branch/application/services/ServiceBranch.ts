@@ -1,20 +1,20 @@
 import { Branch } from 'src/branch/domian/Branch';
-import { CreateBranchUseCase } from 'src/branch/domian/port/in/CreateBranchUseCase';
-import { DeleteBranchUseCase } from 'src/branch/domian/port/in/DeleteBranchUseCase';
-import { GetAllBranchUseCase } from 'src/branch/domian/port/in/GetAllBranchUseCase';
-import { GetByIdBranchUseCase } from 'src/branch/domian/port/in/GetByIdBranchUseCase';
+import { CreateBranchUseCase } from 'src/branch/domian/ports/in/CreateBranchUseCase';
+import { DeleteBranchUseCase } from 'src/branch/domian/ports/in/DeleteBranchUseCase';
+import { FindAllBranchUseCase } from 'src/branch/domian/ports/in/FindAllBranchUseCase';
+import { FindByIdBranchUseCase } from 'src/branch/domian/ports/in/FindByIdBranchUseCase';
 
 export class ServiceBranch
   implements
     CreateBranchUseCase,
-    GetByIdBranchUseCase,
-    GetAllBranchUseCase,
+    FindByIdBranchUseCase,
+    FindAllBranchUseCase,
     DeleteBranchUseCase
 {
   constructor(
     private readonly createBranchUseCase: CreateBranchUseCase,
-    private readonly getAllBranchUseCase: GetAllBranchUseCase,
-    private readonly getByIdBranchUseCase: GetByIdBranchUseCase,
+    private readonly getAllBranchUseCase: FindAllBranchUseCase,
+    private readonly getByIdBranchUseCase: FindByIdBranchUseCase,
     private readonly deleteBranchUseCase: DeleteBranchUseCase,
   ) {}
 

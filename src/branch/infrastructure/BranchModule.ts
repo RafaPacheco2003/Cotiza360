@@ -6,10 +6,10 @@ import { GetAllBranchUseCaseImpl } from '../application/usecases/GetAllBranchUse
 import { GetByIdBranchUseCaseImpl } from '../application/usecases/GetByIdBranchUseCaseImpl';
 import { DeleteBranchUseCaseImpl } from '../application/usecases/DeleteBranchUseCaseImpl';
 import { PostgresBranchRepositoryAdapter } from './repositories/PostgresBranchRepositoryAdapter';
-import { CreateBranchUseCase } from '../domian/port/in/CreateBranchUseCase';
-import { GetAllBranchUseCase } from '../domian/port/in/GetAllBranchUseCase';
-import { GetByIdBranchUseCase } from '../domian/port/in/GetByIdBranchUseCase';
-import { DeleteBranchUseCase } from '../domian/port/in/DeleteBranchUseCase';
+import { CreateBranchUseCase } from '../domian/ports/in/CreateBranchUseCase';
+import { FindAllBranchUseCase } from '../domian/ports/in/FindAllBranchUseCase';
+import { FindByIdBranchUseCase } from '../domian/ports/in/FindByIdBranchUseCase';
+import { DeleteBranchUseCase } from '../domian/ports/in/DeleteBranchUseCase';
 
 // Tokens para casos de uso y repositorio
 const TOKENS = {
@@ -40,8 +40,8 @@ const TOKENS = {
       provide: ServiceBranch,
       useFactory: (
         create: CreateBranchUseCase,
-        getAll: GetAllBranchUseCase,
-        getById: GetByIdBranchUseCase,
+        getAll: FindAllBranchUseCase,
+        getById: FindByIdBranchUseCase,
         del: DeleteBranchUseCase,
       ) => new ServiceBranch(create, getAll, getById, del),
       inject: [TOKENS.CREATE, TOKENS.GET_ALL, TOKENS.GET_BY_ID, TOKENS.DELETE],

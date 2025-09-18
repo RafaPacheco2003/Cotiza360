@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
-import type { RepositoryBranchPort } from 'src/branch/domian/port/out/RepositoryBranchPort';
+import type { RepositoryBranchPort } from 'src/branch/domian/ports/out/RepositoryBranchPort';
 import { Branch } from 'src/branch/domian/Branch';
-import { CreateBranchUseCase } from 'src/branch/domian/port/in/CreateBranchUseCase';
+import { CreateBranchUseCase } from 'src/branch/domian/ports/in/CreateBranchUseCase';
 
 export class CreateBranchUseCaseImpl implements CreateBranchUseCase {
   constructor(

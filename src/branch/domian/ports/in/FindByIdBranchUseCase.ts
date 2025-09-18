@@ -1,5 +1,5 @@
 import { Branch } from '../../Branch';
 
-export interface GetByIdBranchUseCase {
+export interface FindByIdBranchUseCase {
   getById(id: string): Promise<Branch | null>;
 }

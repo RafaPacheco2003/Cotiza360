@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { Description } from 'src/description/domain/Description';
-import { CreateDescriptionUseCase } from 'src/description/domain/port/in/CreateDescriptionUseCase';
-import type { DescriptionRepositoryPort } from 'src/description/domain/port/out/DescriptionRepositoryPort';
+import { CreateDescriptionUseCase } from 'src/description/domain/ports/in/CreateDescriptionUseCase';
+import type { DescriptionRepositoryPort } from 'src/description/domain/ports/out/DescriptionRepositoryPort';
 
 export class CreateDescriptionUseCaseImpl implements CreateDescriptionUseCase {
   constructor(

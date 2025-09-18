@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { DescriptionController } from './controller/DescriptionController';
 import { ServiceDescription } from '../application/services/ServiceDescription';
-import { CreateDescriptionUseCase } from '../domain/port/in/CreateDescriptionUseCase';
-import { GetAllDescriptionUseCase } from '../domain/port/in/GetAllDescriptionUseCase';
-import { GetByIdDescriptionUseCase } from '../domain/port/in/GetByIdDescriptionUseCase';
-import { DeleteDescriptionUseCase } from '../domain/port/in/DeleteDescriptionUseCase';
+import { CreateDescriptionUseCase } from '../domain/ports/in/CreateDescriptionUseCase';
+import { GetAllDescriptionUseCase } from '../domain/ports/in/GetAllDescriptionUseCase';
+import { GetByIdDescriptionUseCase } from '../domain/ports/in/GetByIdDescriptionUseCase';
+import { DeleteDescriptionUseCase } from '../domain/ports/in/DeleteDescriptionUseCase';
 import { CreateDescriptionUseCaseImpl } from '../application/usecases/CreateDescriptionUseCaseImpl';
 import { GetAllDescriptionUseCaseImpl } from '../application/usecases/GetAllDescriptionUseCaseImpl';
 import { GetByIdDescriptionUseCaseImpl } from '../application/usecases/GetByIdDescriptionUseCaseImpl';

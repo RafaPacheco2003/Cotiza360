@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { DescriptionRepositoryPort } from 'src/description/domain/port/out/DescriptionRepositoryPort';
+import { DescriptionRepositoryPort } from 'src/description/domain/ports/out/DescriptionRepositoryPort';
 import { Description } from 'src/description/domain/Description';
 import { DescriptionId } from 'src/description/domain/valueObject/DescriptionId';
 import { prismaToDomain, domainToPrisma } from '../mappers/DescriptionMapper';

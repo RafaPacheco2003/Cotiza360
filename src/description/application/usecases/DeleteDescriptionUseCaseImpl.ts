@@ -1,5 +1,5 @@
-import { DeleteDescriptionUseCase } from 'src/description/domain/port/in/DeleteDescriptionUseCase';
-import type { DescriptionRepositoryPort } from 'src/description/domain/port/out/DescriptionRepositoryPort';
+import { DeleteDescriptionUseCase } from 'src/description/domain/ports/in/DeleteDescriptionUseCase';
+import type { DescriptionRepositoryPort } from 'src/description/domain/ports/out/DescriptionRepositoryPort';
 import { DescriptionId } from 'src/description/domain/valueObject/DescriptionId';
 import { DescriptionErrors } from 'src/description/domain/errors/DescriptionErrors';
 import { Inject } from '@nestjs/common';

@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
-import { BranchErrors } from 'src/branch/domian/errors/BranchErrors';
-import { DeleteBranchUseCase } from 'src/branch/domian/port/in/DeleteBranchUseCase';
-import type { RepositoryBranchPort } from 'src/branch/domian/port/out/RepositoryBranchPort';
+import { ErrorsBranch } from 'src/branch/domian/errors/ErrorsBranch';
+import { DeleteBranchUseCase } from 'src/branch/domian/ports/in/DeleteBranchUseCase';
+import type { RepositoryBranchPort } from 'src/branch/domian/ports/out/RepositoryBranchPort';
 import { BranchId } from 'src/branch/domian/valueObject/BranchId';
 
 export class DeleteBranchUseCaseImpl implements DeleteBranchUseCase {
@@ -14,7 +14,7 @@ export class DeleteBranchUseCaseImpl implements DeleteBranchUseCase {
     const branch = await this.branchRepository.findById(branchId);
 
     if (!branch) {
-      throw BranchErrors.notFound(id);
+      throw ErrorsBranch.notFound(id);
     }
 
     await this.branchRepository.delete(branchId);

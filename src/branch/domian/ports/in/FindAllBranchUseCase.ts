@@ -1,5 +1,5 @@
 import { Branch } from '../../Branch';
 
-export interface GetAllBranchUseCase {
+export interface FindAllBranchUseCase {
   findAll(): Promise<Branch[]>;
 }

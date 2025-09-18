@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { Branch } from 'src/branch/domian/Branch';
-import { RepositoryBranchPort } from 'src/branch/domian/port/out/RepositoryBranchPort';
+import { RepositoryBranchPort } from 'src/branch/domian/ports/out/RepositoryBranchPort';
 import { BranchId } from 'src/branch/domian/valueObject/BranchId';
 import { domainToPrisma, prismaToDomain } from '../mappers/MappperBranch';
 

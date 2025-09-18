@@ -1,6 +1,6 @@
 import { Description } from 'src/description/domain/Description';
-import { GetAllDescriptionUseCase } from 'src/description/domain/port/in/GetAllDescriptionUseCase';
-import type { DescriptionRepositoryPort } from 'src/description/domain/port/out/DescriptionRepositoryPort';
+import { GetAllDescriptionUseCase } from 'src/description/domain/ports/in/GetAllDescriptionUseCase';
+import type { DescriptionRepositoryPort } from 'src/description/domain/ports/out/DescriptionRepositoryPort';
 import { Inject } from '@nestjs/common';
 
 export class GetAllDescriptionUseCaseImpl implements GetAllDescriptionUseCase {
