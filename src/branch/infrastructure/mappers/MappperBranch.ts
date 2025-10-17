@@ -83,7 +83,9 @@ export function domainToResponse(branch: Branch): BranchResponse {
  */
 export function prismaToResponse(branch: PrismaBranch): BranchResponse {
   const response = new BranchResponse();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   response.id = branch.id;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   response.name = branch.name;
 
   return response;

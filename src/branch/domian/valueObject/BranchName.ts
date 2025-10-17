@@ -7,7 +7,7 @@ export class BranchName {
   }
 
   private ensureIsValid(): void {
-    if (!this.value || this.value.length <= 3) {
+    if (!this.value || this.value.length <= 2) {
       throw new Error('Invalid BranchName');
     }
   }

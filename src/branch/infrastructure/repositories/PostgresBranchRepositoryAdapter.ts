@@ -13,16 +13,19 @@ export class PostgresBranchRepositoryAdapter implements RepositoryBranchPort {
       data: prismaData,
     });
   }
+
   async findAll(): Promise<Branch[]> {
     const results = await this.prisma.branch.findMany();
     return results.map(prismaToDomain);
   }
+
   async findById(id: BranchId): Promise<Branch | null> {
     const result = await this.prisma.branch.findUnique({
       where: { id: id.value },
     });
     return result ? prismaToDomain(result) : null;
   }
+
   async delete(id: BranchId): Promise<void> {
     await this.prisma.branch.delete({
       where: { id: id.value },
