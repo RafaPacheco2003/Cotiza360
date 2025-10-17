@@ -1,5 +1,4 @@
-import { Branch } from '@prisma/client';
-
-export interface FindByIdBranchUseCase {
-  findById(id: string): Promise<Branch | null>;
+import { Model } from '../../Model';
+export interface FindByIdModelUseCase {
+  findById(id: string): Promise<Model | null>;
 }

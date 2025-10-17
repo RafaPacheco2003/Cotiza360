@@ -19,10 +19,21 @@ model Description {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
-
 model Branch {
+  id      String  @id @default(uuid())
+  name    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  models  Model[]  // Un Branch tiene muchos Model
+}
+
+model Model {
   id        String   @id @default(uuid())
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  branchId String   // FK al Branch
+  branch   Branch   @relation(fields: [branchId], references: [id])
 }

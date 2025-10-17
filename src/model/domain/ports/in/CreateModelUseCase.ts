@@ -1,5 +1,4 @@
-import { Branch } from '@prisma/client';
-
-export interface CreateBranchUseCase {
-  create(branch: Branch): Promise<void>;
+import { Model } from '../../Model';
+export interface CreateModelUseCase {
+  create(model: Model): Promise<void>;
 }
