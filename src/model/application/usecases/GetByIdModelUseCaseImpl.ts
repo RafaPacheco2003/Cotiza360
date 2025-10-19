@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { Model } from 'src/model/domain/Model';
 import { FindByIdModelUseCase } from 'src/model/domain/ports/in/FindByIdModelUseCase';
-import type { ModelRepositoryPort } from 'src/model/domain/ports/out/ModelRepositoryPort';
+import type { ModelRepositoryPort } from 'src/model/domain/ports/out/RepositoryModelPort';
 
 export class GetByIdModelUseCaseImpl implements FindByIdModelUseCase {
   constructor(

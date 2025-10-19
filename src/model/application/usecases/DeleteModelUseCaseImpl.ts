@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
 import { DeleteModelUseCase } from 'src/model/domain/ports/in/DeleteModelUseCase';
-import type { ModelRepositoryPort } from 'src/model/domain/ports/out/ModelRepositoryPort';
+import type { ModelRepositoryPort } from 'src/model/domain/ports/out/RepositoryModelPort';
 
 export class DeleteModelUseCaseImpl implements DeleteModelUseCase {
   constructor(
