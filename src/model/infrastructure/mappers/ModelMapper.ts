@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Model as PrismaModel } from '@prisma/client';
+import { Model as PrismaModel, Branch as PrismaBranch } from '@prisma/client';
 import { Model } from 'src/model/domain/Model';
 import { ModelName } from 'src/model/domain/valueObject/ModelName';
 import { ModelId } from 'src/model/domain/valueObject/ModelId';
@@ -8,10 +7,15 @@ import { ModelRequest } from '../dtos/request/ModelRequest';
 import { ModelResponse } from '../dtos/response/ModelResponse';
 import { v4 as uuidv4 } from 'uuid';
 
+// Tipo para el resultado con JOIN
+type ModelWithBranch = PrismaModel & {
+  branch?: PrismaBranch;
+};
+
 /**
  * Convierte una entidad Model de Prisma a la entidad Model del dominio
  */
-export function prismaToDomain(model: PrismaModel): Model {
+export function prismaToDomain(model: ModelWithBranch): Model {
   const modelId = new ModelId(model.id);
   const modelName = new ModelName(model.name);
   const branchId = new BranchId(model.branchId);
@@ -77,23 +81,32 @@ export function domainToResponse(model: Model): ModelResponse {
   const response = new ModelResponse();
   response.id = model.id.value;
   response.name = model.name.value;
-  response.branchId = model.branchId.value;
 
   return response;
 }
 
 /**
- * Convierte directamente una entidad de Prisma a un objeto DTO Response
+ * Convierte directamente una entidad de Prisma CON BRANCH a un objeto DTO Response
  * Útil para operaciones de solo lectura donde no se necesita pasar por el dominio
+ * INCLUYE TODO EL OBJETO BRANCH desde el JOIN
  *
- * @param model Entidad de Prisma
- * @returns Objeto ModelResponse con los datos para el cliente
+ * @param model Entidad de Prisma con branch incluido
+ * @returns Objeto ModelResponse con los datos para el cliente incluyendo el objeto branch completo
  */
-export function prismaToResponse(model: PrismaModel): ModelResponse {
+export function prismaToResponse(model: ModelWithBranch): ModelResponse {
   const response = new ModelResponse();
   response.id = model.id;
   response.name = model.name;
-  response.branchId = model.branchId;
+  
+  // 🎯 INCLUIR TODO EL OBJETO BRANCH
+  if (model.branch) {
+    response.branch = {
+      id: model.branch.id,
+      name: model.branch.name,
+      createdAt: model.branch.createdAt,
+      updatedAt: model.branch.updatedAt,
+    };
+  }
 
   return response;
 }
