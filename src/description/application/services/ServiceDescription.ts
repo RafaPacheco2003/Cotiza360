@@ -1,20 +1,20 @@
 import { Description } from 'src/description/domain/Description';
 import { CreateDescriptionUseCase } from 'src/description/domain/ports/in/CreateDescriptionUseCase';
 import { DeleteDescriptionUseCase } from 'src/description/domain/ports/in/DeleteDescriptionUseCase';
-import { GetAllDescriptionUseCase } from 'src/description/domain/ports/in/GetAllDescriptionUseCase';
-import { GetByIdDescriptionUseCase } from 'src/description/domain/ports/in/GetByIdDescriptionUseCase';
+import { FindAllDescriptionUseCase } from 'src/description/domain/ports/in/FindAllDescriptionUseCase';
+import { FindByIdDescriptionUseCase } from 'src/description/domain/ports/in/FindByIdDescriptionUseCase';
 
 export class ServiceDescription
   implements
     CreateDescriptionUseCase,
-    GetByIdDescriptionUseCase,
-    GetAllDescriptionUseCase,
+    FindByIdDescriptionUseCase,
+    FindAllDescriptionUseCase,
     DeleteDescriptionUseCase
 {
   constructor(
     private readonly createDescriptionUseCase: CreateDescriptionUseCase,
-    private readonly getAllDescriptionUseCase: GetAllDescriptionUseCase,
-    private readonly getByIdDescriptionUseCase: GetByIdDescriptionUseCase,
+    private readonly FindAllDescriptionUseCase: FindAllDescriptionUseCase,
+    private readonly FindByIdDescriptionUseCase: FindByIdDescriptionUseCase,
     private readonly deleteDescriptionUseCase: DeleteDescriptionUseCase,
   ) {}
 
@@ -23,11 +23,11 @@ export class ServiceDescription
   }
 
   async getById(id: string): Promise<Description | null> {
-    return this.getByIdDescriptionUseCase.getById(id);
+    return this.FindByIdDescriptionUseCase.getById(id);
   }
 
   async getAll(): Promise<Description[]> {
-    return this.getAllDescriptionUseCase.getAll();
+    return this.FindAllDescriptionUseCase.getAll();
   }
 
   async delete(id: string): Promise<void> {

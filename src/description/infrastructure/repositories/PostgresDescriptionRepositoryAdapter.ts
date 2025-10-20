@@ -7,7 +7,7 @@ import { prismaToDomain, domainToPrisma } from '../mappers/DescriptionMapper';
 export class PostgresDescriptionRepositoryAdapter
   implements DescriptionRepositoryPort
 {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+ 
   private prisma = new PrismaClient();
 
   async create(description: Description): Promise<void> {

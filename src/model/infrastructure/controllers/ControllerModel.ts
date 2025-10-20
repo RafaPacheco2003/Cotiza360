@@ -21,14 +21,12 @@ export class ControllerModel {
 
   @Get('/:id')
   async findById(@Param('id') id: string): Promise<ModelResponse | null> {
-    // 🎯 Usar el método que retorna datos RAW con JOIN
     const modelWithBranch = await this.repository.findByIdWithBranchName(id);
     return modelWithBranch ? prismaToResponse(modelWithBranch) : null;
   }
 
   @Get()
   async findAll(): Promise<ModelResponse[]> {
-    // 🎯 Nuevo endpoint para obtener todos con brandName
     const modelsWithBranch = await this.repository.findAllWithBranchName();
     return modelsWithBranch.map(prismaToResponse);
   }

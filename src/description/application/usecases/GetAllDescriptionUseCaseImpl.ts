@@ -1,9 +1,9 @@
 import { Description } from 'src/description/domain/Description';
-import { GetAllDescriptionUseCase } from 'src/description/domain/ports/in/GetAllDescriptionUseCase';
+import { FindAllDescriptionUseCase } from 'src/description/domain/ports/in/FindAllDescriptionUseCase';
 import type { DescriptionRepositoryPort } from 'src/description/domain/ports/out/DescriptionRepositoryPort';
 import { Inject } from '@nestjs/common';
 
-export class GetAllDescriptionUseCaseImpl implements GetAllDescriptionUseCase {
+export class GetAllDescriptionUseCaseImpl implements FindAllDescriptionUseCase {
   constructor(
     @Inject('DescriptionRepositoryPort')
     private readonly descriptionRepository: DescriptionRepositoryPort,

@@ -1,6 +1,6 @@
 import { Body, Controller, Post, Get, Param, HttpCode } from '@nestjs/common';
-import { DescriptionRequest } from '../https/request/DescriptionRequest';
-import { DescriptionResponse } from '../https/response/DescriptionResponse';
+import { DescriptionRequest } from '../dtos/request/DescriptionRequest';
+import { DescriptionResponse } from '../dtos/response/DescriptionResponse';
 import {
   requestToDomain,
   domainToResponse,

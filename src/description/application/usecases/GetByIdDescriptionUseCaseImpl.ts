@@ -1,12 +1,12 @@
 import { Description } from 'src/description/domain/Description';
 import { DescriptionErrors } from 'src/description/domain/errors/DescriptionErrors';
-import { GetByIdDescriptionUseCase } from 'src/description/domain/ports/in/GetByIdDescriptionUseCase';
+import { FindByIdDescriptionUseCase } from 'src/description/domain/ports/in/FindByIdDescriptionUseCase';
 import type { DescriptionRepositoryPort } from 'src/description/domain/ports/out/DescriptionRepositoryPort';
 import { DescriptionId } from 'src/description/domain/valueObject/DescriptionId';
 import { Inject } from '@nestjs/common';
 
 export class GetByIdDescriptionUseCaseImpl
-  implements GetByIdDescriptionUseCase
+  implements FindByIdDescriptionUseCase
 {
   constructor(
     @Inject('DescriptionRepositoryPort')

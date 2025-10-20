@@ -39,7 +39,6 @@ export class PostgresModelRepositoryAdapter implements ModelRepositoryPort {
     });
   }
 
-  // 🎯 NUEVOS MÉTODOS QUE SÍ RETORNAN EL BRANDNAME
   async findAllWithBranchName() {
     return await this.prisma.model.findMany({
       include: {

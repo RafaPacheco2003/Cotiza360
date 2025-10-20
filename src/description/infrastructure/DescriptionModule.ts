@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { DescriptionController } from './controller/DescriptionController';
 import { ServiceDescription } from '../application/services/ServiceDescription';
 import { CreateDescriptionUseCaseImpl } from '../application/usecases/CreateDescriptionUseCaseImpl';
-import { GetAllDescriptionUseCaseImpl } from '../application/usecases/GetAllDescriptionUseCaseImpl';
-import { GetByIdDescriptionUseCaseImpl } from '../application/usecases/GetByIdDescriptionUseCaseImpl';
 import { DeleteDescriptionUseCaseImpl } from '../application/usecases/DeleteDescriptionUseCaseImpl';
 import { PostgresDescriptionRepositoryAdapter } from './repositories/PostgresDescriptionRepositoryAdapter';
+import { GetByIdDescriptionUseCaseImpl } from '../application/usecases/GetByIdDescriptionUseCaseImpl';
+import { GetAllDescriptionUseCaseImpl } from '../application/usecases/GetAllDescriptionUseCaseImpl';
 
 @Module({
   controllers: [DescriptionController],
@@ -22,11 +22,11 @@ import { PostgresDescriptionRepositoryAdapter } from './repositories/PostgresDes
       useClass: CreateDescriptionUseCaseImpl,
     },
     {
-      provide: 'GetAllDescriptionUseCase',
+      provide: 'FindAllDescriptionUseCase',
       useClass: GetAllDescriptionUseCaseImpl,
     },
     {
-      provide: 'GetByIdDescriptionUseCase',
+      provide: 'FindByIdDescriptionUseCase',
       useClass: GetByIdDescriptionUseCaseImpl,
     },
     {
@@ -41,8 +41,8 @@ import { PostgresDescriptionRepositoryAdapter } from './repositories/PostgresDes
         new ServiceDescription(create, getAll, getById, del),
       inject: [
         'CreateDescriptionUseCase',
-        'GetAllDescriptionUseCase',
-        'GetByIdDescriptionUseCase', 
+        'FindAllDescriptionUseCase',
+        'FindByIdDescriptionUseCase', 
         'DeleteDescriptionUseCase'
       ],
     },

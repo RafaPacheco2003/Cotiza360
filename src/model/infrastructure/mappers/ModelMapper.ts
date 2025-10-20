@@ -98,13 +98,10 @@ export function prismaToResponse(model: ModelWithBranch): ModelResponse {
   response.id = model.id;
   response.name = model.name;
   
-  // 🎯 INCLUIR TODO EL OBJETO BRANCH
   if (model.branch) {
     response.branch = {
       id: model.branch.id,
-      name: model.branch.name,
-      createdAt: model.branch.createdAt,
-      updatedAt: model.branch.updatedAt,
+      name: model.branch.name
     };
   }
 

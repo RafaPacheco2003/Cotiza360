@@ -4,7 +4,5 @@ export class ModelResponse {
   branch?: {
     id: string;
     name: string;
-    createdAt: Date;
-    updatedAt: Date;
   };
 }

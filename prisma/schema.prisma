@@ -13,19 +13,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Description {
-  id          String   @id @default(uuid())
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
+
 model Branch {
   id      String  @id @default(uuid())
   name    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  models  Model[]  // Un Branch tiene muchos Model
+  models  Model[]  
 }
 
 model Model {
@@ -36,4 +31,18 @@ model Model {
 
   branchId String   // FK al Branch
   branch   Branch   @relation(fields: [branchId], references: [id])
+
+
+  descriptions Description[]
+}
+
+model Description {
+  id          String   @id @default(uuid())
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+
+  modelId String   // FK al Model
+  model Model @relation(fields: [modelId], references: [id])
 }
