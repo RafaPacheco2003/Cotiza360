@@ -8,5 +8,5 @@ export class DescriptionRequest {
     message: 'La descripción debe tener entre 10 y 300 caracteres',
   })
   description: string;
-  modelId?: string;
+  modelId: string;
 }

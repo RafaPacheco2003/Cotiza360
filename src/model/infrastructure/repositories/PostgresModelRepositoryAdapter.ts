@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { Model } from 'src/model/domain/Model';
 import { ModelRepositoryPort } from 'src/model/domain/ports/out/ModelRepositoryPort';
 import { ModelId } from 'src/model/domain/valueObject/ModelId';
-import { domainToPrisma, prismaToDomain } from '../mappers/ModelMapper';
+import { domainToPrisma, prismaToDomain, prismaWithBranchToDomain } from '../mappers/ModelMapper';
 
 export class PostgresModelRepositoryAdapter implements ModelRepositoryPort {
   private prisma = new PrismaClient();
@@ -39,20 +39,23 @@ export class PostgresModelRepositoryAdapter implements ModelRepositoryPort {
     });
   }
 
-  async findAllWithBranchName() {
-    return await this.prisma.model.findMany({
+  async findAllWithBranch(): Promise<Model[]> {
+    const results = await this.prisma.model.findMany({
       include: {
         branch: true,
       },
     });
+    return results.map(prismaWithBranchToDomain);
   }
+  
 
-  async findByIdWithBranchName(id: string) {
-    return await this.prisma.model.findUnique({
+  async findByIdWithBranch(id: string): Promise<Model | null> {
+    const result = await this.prisma.model.findUnique({
       where: { id },
       include: {
         branch: true,
       },
     });
+    return result ? prismaWithBranchToDomain(result) : null;
   }
 }

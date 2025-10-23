@@ -23,13 +23,13 @@ export class DescriptionController {
 
   @Get(':id')
   async findById(@Param('id') id: string): Promise<DescriptionResponse | null> {
-    const domain = await this.service.getById(id);
+    const domain = await this.service.findByIdWithModel(id);
     return domain ? domainToResponse(domain) : null;
   }
 
   @Get()
   async findAll(): Promise<DescriptionResponse[]> {
-    const domain = await this.service.getAll();
+    const domain = await this.service.findAllWithModel();
     return domain.map(domainToResponse);
   }
 }

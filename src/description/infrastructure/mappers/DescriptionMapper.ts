@@ -7,43 +7,90 @@ import { DescriptionRequest } from '../dtos/request/DescriptionRequest';
 
 import { v4 as uuidv4 } from 'uuid';
 import { DescriptionModelId } from 'src/description/domain/valueObject/DescriptionModelId';
+import { DescriptionModelName } from 'src/description/domain/valueObject/DescriptionModelName';
 
-// De DTO a Entity de dominio
-export function requestToDomain(request: DescriptionRequest): Description {
-  // El id se genera en la infraestructura o en el repositorio, aquí solo pasamos description
-  return new Description(
-    new DescriptionId(uuidv4()), // o puedes dejarlo opcional si tu constructor lo permite
-    new DescriptionDescription(request.description),
-    new DescriptionModelId(request.modelId || '')
-  );
+// Tipo para el resultado con JOIN (igual que ModelWithBranch en ModelMapper)
+type PrismaDescriptionWithModel = PrismaDescription & {
+  model?: PrismaModel;
+};
+
+
+
+
+/**
+ * 
+ * Factory para value object 
+ *  Factory para value objects
+ */
+class ValueObjectFactory {
+  static description = {
+    id: (value: string) => new DescriptionId(value),
+    description: (value: string) => new DescriptionDescription(value),
+    modelId: (value: string) => new DescriptionModelId(value),
+    modelName: (value?: string) => value ? new DescriptionModelName(value) : undefined,
+  }
 }
 
-// De Prisma Model a Entity de dominio
-export function prismaToDomain(prisma: PrismaDescription): Description {
-  return new Description(
-    new DescriptionId(prisma.id),
-    new DescriptionDescription(prisma.description),
-    new DescriptionModelId(prisma.id)
-  );
-}
 
-// De Entity de dominio a Prisma Model (para crear/actualizar)
-export function domainToPrisma(entity: Description): {
-  id: string;
-  description: string;
-  modelId: string;
-} {
-  return {
-    id: entity.id.value,
-    description: entity.description.value,
-    modelId: entity.modelId.value,
+
+
+
+
+export class DescriptionMapper {
+
+  static fromPrisma = {
+    toDomain: (data: PrismaDescriptionWithModel): Description => new Description(
+      ValueObjectFactory.description.id(data.id),
+      ValueObjectFactory.description.description(data.description),
+      ValueObjectFactory.description.modelId(data.modelId)
+    ),
+
+
+    toDomainWithModel: (data: PrismaDescriptionWithModel): Description => new Description(
+      ValueObjectFactory.description.id(data.id),
+      ValueObjectFactory.description.description(data.description),
+      ValueObjectFactory.description.modelId(data.modelId),
+      ValueObjectFactory.description.modelName(data.model?.name)
+    )
+
+
+  };
+
+
+  static fromRequest = {
+    toDomain: (data: DescriptionRequest): Description => new Description(
+      ValueObjectFactory.description.id(uuidv4()),
+      ValueObjectFactory.description.description(data.description),
+      ValueObjectFactory.description.modelId(data.modelId),
+    )
+  }
+
+
+
+  static fromDomain = {
+    toPrisma: (description: Description) => ({
+      id: description.id.value,
+      description: description.description.value,
+      modelId: description.modelId.value,
+    }),
+    
+    toResponse: (description: Description): DescriptionResponse => ({
+      id: description.id.value,
+      description: description.description.value,
+      ... (description.modelName && {
+        model: {
+          id: description.modelId.value,
+          name: description.modelName.value,
+        }
+      })
+    })
   };
 }
 
-// De Entity de dominio a DTO de respuesta
-export function domainToResponse(entity: Description): DescriptionResponse {
-  return {
-    id: entity.id.value,
-    description: entity.description.value,
-  };
-}
+
+
+export const prismaToDomain = DescriptionMapper.fromPrisma.toDomain;
+export const prismaToDomainWithModel = DescriptionMapper.fromPrisma.toDomainWithModel;
+export const requestToDomain = DescriptionMapper.fromRequest.toDomain;
+export const domainToPrisma = DescriptionMapper.fromDomain.toPrisma;
+export const domainToResponse = DescriptionMapper.fromDomain.toResponse;

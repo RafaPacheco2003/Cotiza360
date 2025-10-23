@@ -5,4 +5,6 @@ export interface ModelRepositoryPort {
   findAll(): Promise<Model[]>;
   findById(id: string): Promise<Model | null>;
   delete(id: string): Promise<void>;
+  findByIdWithBranch(id: string): Promise<Model | null>;
+  findAllWithBranch(): Promise<Model[]>;
 }

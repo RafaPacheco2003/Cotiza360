@@ -1,15 +1,14 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ServiceModel } from 'src/model/application/services/ServiceModel';
 import { ModelResponse } from '../dtos/response/ModelResponse';
-import { domainToResponse, requestToDomain, prismaToResponse } from '../mappers/ModelMapper';
+import { domainToResponse, requestToDomain } from '../mappers/ModelMapper';
 import { ModelRequest } from '../dtos/request/ModelRequest';
 import { PostgresModelRepositoryAdapter } from '../repositories/PostgresModelRepositoryAdapter';
 
 @Controller('models')
 export class ControllerModel {
   constructor(
-    private readonly service: ServiceModel,
-    private readonly repository: PostgresModelRepositoryAdapter,
+    private readonly service: ServiceModel
   ) {}
 
   @Post()
@@ -19,16 +18,17 @@ export class ControllerModel {
     return domainToResponse(domain);
   }
 
+  
   @Get('/:id')
   async findById(@Param('id') id: string): Promise<ModelResponse | null> {
-    const modelWithBranch = await this.repository.findByIdWithBranchName(id);
-    return modelWithBranch ? prismaToResponse(modelWithBranch) : null;
+    const modelWithBranch = await this.service.findByIdWithBranch(id);
+    return modelWithBranch ? domainToResponse(modelWithBranch) : null;
   }
 
   @Get()
   async findAll(): Promise<ModelResponse[]> {
-    const modelsWithBranch = await this.repository.findAllWithBranchName();
-    return modelsWithBranch.map(prismaToResponse);
+    const modelsWithBranch = await this.service.findAllWithBranch();
+    return modelsWithBranch.map(domainToResponse);
   }
 
   @Delete('/:id')

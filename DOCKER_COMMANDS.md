@@ -108,3 +108,10 @@ docker stats
 # Limpiar contenedores no utilizados
 docker system prune
 ```
+
+
+# En desarrollo
+docker compose exec api npx prisma generate
+
+# En rebuild completo (lo que hiciste)
+docker compose up --build

@@ -1,12 +1,12 @@
 import { Inject } from '@nestjs/common';
 import { CreateModelUseCase } from '../../domain/ports/in/CreateModelUseCase';
-import type { RepositoryModelPort } from 'src/model/domain/ports/out/RepositoryModelPort';
 import { Model } from 'src/model/domain/Model';
+import type { ModelRepositoryPort } from 'src/model/domain/ports/out/ModelRepositoryPort';
 
 export class CreateModelUseCaseImpl implements CreateModelUseCase {
   constructor(
     @Inject('ModelRepositoryPort')
-    private readonly modelRepository: RepositoryModelPort,
+    private readonly modelRepository: ModelRepositoryPort,
   ) {}
 
   async create(model: Model): Promise<void> {

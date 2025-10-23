@@ -6,4 +6,6 @@ export interface DescriptionRepositoryPort {
   findAll(): Promise<Description[]>;
   findById(id: DescriptionId): Promise<Description | null>;
   delete(id: DescriptionId): Promise<void>;
+  findAllWithModel(): Promise<Description[]>;
+  findByIdWithModel(id: string): Promise<Description | null>;
 }

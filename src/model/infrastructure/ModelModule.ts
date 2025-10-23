@@ -6,6 +6,7 @@ import { CreateModelUseCaseImpl } from '../application/usecases/CreateModelUseCa
 import { GetAllModelUseCaseImpl } from '../application/usecases/GetAllModelUseCaseImpl';
 import { GetByIdModelUseCaseImpl } from '../application/usecases/GetByIdModelUseCaseImpl';
 import { DeleteModelUseCaseImpl } from '../application/usecases/DeleteModelUseCaseImpl';
+import { GetAllWithBranchUseCaseImpl } from '../application/usecases/GetAllWithBranchUseCaseImpl';
 
 @Module({
   controllers: [ControllerModel],
@@ -34,14 +35,24 @@ import { DeleteModelUseCaseImpl } from '../application/usecases/DeleteModelUseCa
       useClass: DeleteModelUseCaseImpl,
     },
     {
+      provide: 'FindAllWithBranchUseCase',
+      useClass: GetAllWithBranchUseCaseImpl,
+    },
+    {
+      provide: 'FindByIdWithBranchUseCase',
+      useClass: GetByIdModelUseCaseImpl,
+    },
+    {
       provide: ServiceModel,
-      useFactory: (create, getAll, getById, del) => 
-        new ServiceModel(create, getAll, getById, del),
+      useFactory: (create, getAll, getById, del, findByIdWithBranch, findAllWithBranch) => 
+        new ServiceModel(create, getAll, getById, del, findByIdWithBranch, findAllWithBranch),
       inject: [
         'CreateModelUseCase',
         'GetAllModelUseCase',
         'GetByIdModelUseCase',
-        'DeleteModelUseCase'
+        'DeleteModelUseCase',
+        'FindByIdWithBranchUseCase',
+        'FindAllWithBranchUseCase'
       ],
     },
   ],
