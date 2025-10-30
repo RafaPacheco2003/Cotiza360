@@ -14,6 +14,66 @@ datasource db {
 }
 
 
+
+model User {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  number      String   @unique
+  ext         String
+  name        String
+  lastName    String
+  dateOfBirth DateTime
+  
+  zipCode     String
+
+
+  isActive    Boolean  @default(false)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userPasswords UserPassword[]
+  userVerifications UserVerification[]
+  userPasswordResets UserPasswordReset[]
+
+}
+
+
+
+model UserPassword {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  password  String
+  salt      String
+  isActive  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model UserPasswordReset {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token      String
+  expiration DateTime
+  used     Boolean  @default(false)
+  isActive  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+
+model UserVerification {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token      String
+  expiration DateTime
+  used     Boolean  @default(false)
+  isActive  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+
+
 model Branch {
   id      String  @id @default(uuid())
   name    String
