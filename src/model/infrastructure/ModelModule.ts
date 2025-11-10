@@ -11,8 +11,9 @@ import { GetAllWithBranchUseCaseImpl } from '../application/usecases/GetAllWithB
 @Module({
   controllers: [ControllerModel],
   providers: [
-    // 🎯 Agregar repository como provider directo
+   
     PostgresModelRepositoryAdapter,
+    
     
     {
       provide: 'ModelRepositoryPort',

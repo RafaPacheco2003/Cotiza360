@@ -74,6 +74,19 @@ model UserVerification {
 
 
 
+
+model Quotation{
+  id        String   @id @default(uuid())
+  branchId  String
+  branch    Branch   @relation(fields: [branchId], references: [id])
+  modelId   String
+  model     Model    @relation(fields: [modelId], references: [id])
+  descriptionId String
+  description   Description @relation(fields: [descriptionId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Branch {
   id      String  @id @default(uuid())
   name    String
@@ -81,6 +94,7 @@ model Branch {
   updatedAt DateTime @updatedAt
 
   models  Model[]  
+  quotations Quotation[]
 }
 
 model Model {
@@ -94,6 +108,7 @@ model Model {
 
 
   descriptions Description[]
+  quotations Quotation[]
 }
 
 model Description {
@@ -105,4 +120,6 @@ model Description {
 
   modelId String   // FK al Model
   model Model @relation(fields: [modelId], references: [id])
+
+  quotations Quotation[]
 }

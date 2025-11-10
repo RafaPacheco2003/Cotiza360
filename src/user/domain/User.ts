@@ -4,6 +4,7 @@ import { UserExt } from "./valueObject/UserExt";
 import { UserId } from "./valueObject/UserId";
 import { UserName } from "./valueObject/UserName";
 import { UserNumber } from "./valueObject/UserNumber";
+import { UserZipCode } from "./valueObject/UserZipCode";
 
 export class User {
     id: UserId;
@@ -13,6 +14,7 @@ export class User {
     number: UserNumber;
     email: UserEmail;
     dateOfBirth: UserDateOfBirth;
+    zipCode: UserZipCode;
 
     constructor(
         id: UserId,
@@ -21,7 +23,8 @@ export class User {
         ext: UserExt,
         number: UserNumber,
         email: UserEmail,
-        dateOfBirth: UserDateOfBirth
+        dateOfBirth: UserDateOfBirth,
+        zipCode: UserZipCode
     ) {
         this.id = id;
         this.name = name;
@@ -30,6 +33,7 @@ export class User {
         this.number = number;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
+        this.zipCode = zipCode;
     }
 
 }

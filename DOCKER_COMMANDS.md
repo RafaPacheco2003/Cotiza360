@@ -21,6 +21,10 @@ docker compose up -d postgres
 docker compose up --build
 ```
 
+
+npx prisma generate
+
+
 ### Detener servicios
 
 ```bash
