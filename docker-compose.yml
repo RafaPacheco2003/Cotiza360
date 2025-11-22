@@ -1,4 +1,37 @@
 services:
+  zookeeper:
+    container_name: zookeeper-cotiza360
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    restart: unless-stopped
+
+  kafka:
+    container_name: kafka-cotiza360
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server localhost:9092 || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
   postgres:
     container_name: postgres-cotiza360
     image: postgres:14
@@ -10,10 +43,10 @@ services:
     volumes:
       - postgres-cotiza360:/data/postgres
     ports:
-      - '5432:5432'
+      - "5432:5432"
     restart: unless-stopped
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U cotiza360_user -d cotiza360_db']
+      test: ["CMD-SHELL", "pg_isready -U cotiza360_user -d cotiza360_db"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -26,18 +59,18 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      kafka:
+        condition: service_healthy
     environment:
       - DATABASE_URL=postgresql://cotiza360_user:tu_password_seguro@postgres:5432/cotiza360_db?schema=public
       - NODE_ENV=development
     ports:
-      - '3000:3000'
-      - '5555:5555'
+      - "3000:3000"
+      - "5555:5555"
     restart: unless-stopped
-    volumes:
-      - ./:/usr/src/app
-      - /usr/src/app/node_modules
     command: >
-      sh -c "npm install && 
+      sh -c "npm install &&
+             npx prisma migrate deploy &&
              npx prisma generate &&
              npm run start:dev"
 

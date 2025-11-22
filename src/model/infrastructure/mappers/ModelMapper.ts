@@ -39,7 +39,7 @@ export class ModelMapper {
       ValueObjectFactory.model.name(data.name),
       ValueObjectFactory.model.branchId(data.branchId)
     ),
-
+ 
     // Con branch info (USADO en repositorio para WithBranch methods)
     toDomainWithBranch: (data: PrismaModelWithBranch): Model => new Model(
       ValueObjectFactory.model.id(data.id),
