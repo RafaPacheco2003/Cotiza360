@@ -7,7 +7,9 @@ import { GetAllQuotationUseCaseImpl } from '../application/usecases/GetAllQuotat
 import { GetByIdQuotationUseCaseImpl } from '../application/usecases/GetByIdQuotationUseCaseImpl';
 import { DeleteQuotationUseCaseImpl } from '../application/usecases/DeleteQuotationUseCaseImpl';
 
+
 @Module({
+  imports: [],
   controllers: [ControllerQuotation],
   providers: [
     PostgresQuotationRepositoryAdapter,

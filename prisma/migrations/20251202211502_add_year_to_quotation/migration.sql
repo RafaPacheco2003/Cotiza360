@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Quotation" ADD COLUMN "year" INTEGER NOT NULL DEFAULT 2024;

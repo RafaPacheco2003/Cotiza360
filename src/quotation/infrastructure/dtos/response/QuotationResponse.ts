@@ -12,4 +12,5 @@ export class QuotationResponse {
         id: string;
         name: string;
     };
+    year: number;
 }

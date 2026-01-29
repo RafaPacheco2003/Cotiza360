@@ -1,6 +1,7 @@
 import { Quotation as PrismaQuotation, Model as PrismaModel, Branch as PrismaBranch, Description as PrismaDescription } from '@prisma/client';
 import { Quotation } from 'src/quotation/domain/Quotation';
 import { QuotationId } from 'src/quotation/domain/valueObject/QuotationId';
+import { QuotationYear } from 'src/quotation/domain/valueObject/QuotationYear';
 import { QuotationBranch } from 'src/quotation/domain/QuotationBranch';
 import { QuotationModel } from 'src/quotation/domain/QuotationModel';
 import { QuotationDescription } from 'src/quotation/domain/QuotationDescription';
@@ -22,6 +23,7 @@ type PrismaQuotationWithRelations = PrismaQuotation & {
 class ValueObjectFactory {
   static quotation = {
     id: (value: string) => new QuotationId(value),
+    year: (value: number) => new QuotationYear(value),
     branch: (id: string, name: string) => new QuotationBranch(id, name),
     model: (id: string, name: string) => new QuotationModel(id, name),
     description: (id: string, name: string) => new QuotationDescription(id, name),
@@ -42,7 +44,8 @@ export class QuotationMapper {
       ValueObjectFactory.quotation.id(data.id),
       ValueObjectFactory.quotation.branch(data.branchId, ''),
       ValueObjectFactory.quotation.model(data.modelId, ''),
-      ValueObjectFactory.quotation.description(data.descriptionId, '')
+      ValueObjectFactory.quotation.description(data.descriptionId, ''),
+      ValueObjectFactory.quotation.year(data.year)
     ),
  
     // Con relaciones (USADO en repositorio para métodos WithRelations)
@@ -50,7 +53,8 @@ export class QuotationMapper {
       ValueObjectFactory.quotation.id(data.id),
       ValueObjectFactory.quotation.branch(data.branchId, data.branch?.name || ''),
       ValueObjectFactory.quotation.model(data.modelId, data.model?.name || ''),
-      ValueObjectFactory.quotation.description(data.descriptionId, data.description?.description || '')
+      ValueObjectFactory.quotation.description(data.descriptionId, data.description?.description || ''),
+      ValueObjectFactory.quotation.year(data.year)
     )
   };
 
@@ -63,7 +67,8 @@ export class QuotationMapper {
       ValueObjectFactory.quotation.id(uuidv4()),
       ValueObjectFactory.quotation.branch(data.branchId, ''),
       ValueObjectFactory.quotation.model(data.modelId, ''),
-      ValueObjectFactory.quotation.description(data.descriptionId, '')
+      ValueObjectFactory.quotation.description(data.descriptionId, ''),
+      ValueObjectFactory.quotation.year(data.year)
     )
   };
 
@@ -77,11 +82,13 @@ export class QuotationMapper {
       branchId: quotation.branch.branchId,
       modelId: quotation.model.modelId,
       descriptionId: quotation.description.descriptionId,
+      year: quotation.year.value,
     }),
 
     // A Response (para APIs)
     toResponse: (quotation: Quotation): QuotationResponse => ({
       id: quotation.id.value,
+      year: quotation.year.value,
       ...(quotation.branch.branchName && {
         branch: {
           id: quotation.branch.branchId,

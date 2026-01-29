@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Logger, HttpCode, HttpStatus } from '@nestjs/common';
 import { ServiceQuotation } from 'src/quotation/application/services/ServiceQuotation';
 import { QuotationRequest } from '../dtos/request/QuotationRequest';
 import { QuotationResponse } from '../dtos/response/QuotationResponse';
@@ -6,17 +6,26 @@ import { domainToResponse, requestToDomain } from '../mappers/QuotationMapper';
 
 @Controller('quotations')
 export class ControllerQuotation {
+  private readonly logger = new Logger(ControllerQuotation.name);
+
   constructor(
     private readonly service: ServiceQuotation
   ) {}
 
   @Post()
+  @HttpCode(HttpStatus.OK)
   async create(@Body() request: QuotationRequest): Promise<QuotationResponse> {
-    const domain = requestToDomain(request);
-    await this.service.create(domain);
-    // Recuperar con relaciones para devolver nombres completos
-    const created = await this.service.findById(domain.id.value);
-    return created ? domainToResponse(created) : domainToResponse(domain);
+    
+
+      const domain = requestToDomain(request);
+      await this.service.create(domain);
+      
+      const created = await this.service.findById(domain.id.value);
+      const response = created ? domainToResponse(created) : domainToResponse(domain);
+
+      
+      return response;
+    
   }
 
   @Get('/:id')
