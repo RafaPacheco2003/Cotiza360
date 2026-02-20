@@ -6,6 +6,7 @@ import { CreateQuotationUseCaseImpl } from '../application/usecases/CreateQuotat
 import { GetAllQuotationUseCaseImpl } from '../application/usecases/GetAllQuotationUseCaseImpl';
 import { GetByIdQuotationUseCaseImpl } from '../application/usecases/GetByIdQuotationUseCaseImpl';
 import { DeleteQuotationUseCaseImpl } from '../application/usecases/DeleteQuotationUseCaseImpl';
+import { KafkaQuotationEventPublisher } from './kafka/KafkaQuotationEventPublisher';
 
 
 @Module({
@@ -13,9 +14,14 @@ import { DeleteQuotationUseCaseImpl } from '../application/usecases/DeleteQuotat
   controllers: [ControllerQuotation],
   providers: [
     PostgresQuotationRepositoryAdapter,
+    KafkaQuotationEventPublisher,
     {
       provide: 'QuotationRepositoryPort',
       useClass: PostgresQuotationRepositoryAdapter,
+    },
+    {
+      provide: 'QuotationEventPublisher',
+      useClass: KafkaQuotationEventPublisher,
     },
     {
       provide: 'CreateQuotationUseCase',

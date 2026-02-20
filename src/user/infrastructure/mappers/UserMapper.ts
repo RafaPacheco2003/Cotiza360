@@ -21,6 +21,7 @@ class ValueObjectFactory {
     email: (value: string) => new UserEmail(value),
     dateOfBirth: (value: Date) => new UserDateOfBirth(value),
     zipCode: (value: string) => new UserZipCode(value),
+    isActive: (value: boolean) => value,
   };
 }
 
@@ -37,6 +38,7 @@ export class UserMapper {
         ValueObjectFactory.user.email(data.email),
         ValueObjectFactory.user.dateOfBirth(data.dateOfBirth),
         ValueObjectFactory.user.zipCode(data.zipCode),
+        ValueObjectFactory.user.isActive(data.isActive),
       ),
   };
 
@@ -52,6 +54,7 @@ export class UserMapper {
         ValueObjectFactory.user.email(data.email),
         ValueObjectFactory.user.dateOfBirth(data.dateOfBirth),
         ValueObjectFactory.user.zipCode(data.zipCode),
+        ValueObjectFactory.user.isActive(true),
       ),
   };
 
@@ -67,6 +70,7 @@ export class UserMapper {
         email: data.email.value,
         dateOfBirth: new Date(data.dateOfBirth.value),
         zipCode: data.zipCode.value,
+        isActive: data.isActive,
       } as PrismaUser),
 
     toResponse: (data: User): UserResponse => ({

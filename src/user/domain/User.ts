@@ -15,6 +15,7 @@ export class User {
     email: UserEmail;
     dateOfBirth: UserDateOfBirth;
     zipCode: UserZipCode;
+    isActive: boolean;
 
     constructor(
         id: UserId,
@@ -24,7 +25,8 @@ export class User {
         number: UserNumber,
         email: UserEmail,
         dateOfBirth: UserDateOfBirth,
-        zipCode: UserZipCode
+        zipCode: UserZipCode,
+        isActive: boolean
     ) {
         this.id = id;
         this.name = name;
@@ -34,6 +36,7 @@ export class User {
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.zipCode = zipCode;
+        this.isActive = isActive;
     }
 
 }
